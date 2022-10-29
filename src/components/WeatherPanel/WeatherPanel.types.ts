@@ -1,5 +1,8 @@
+import { WeatherData } from "../../pages/Weather.types";
+
 export interface WeatherPanelProps {
-  index: number;
-  value: number;
-  temperature: string;
+  // id: number;
+  // value: number;
+  weatherData: WeatherData | null;
+  isLoading: boolean;
 }
