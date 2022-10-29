@@ -1,40 +1,56 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getWeather } from "../core/api";
 import { initialCities } from "./Weather.const";
-import { IWeatherContext } from "./Weather.context";
 import { City, WeatherData } from "./Weather.types";
 
 export const useWeather = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [cities, setCities] = useState<City[]>(initialCities);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const onCitySelect = (id: number) => {
-    return cities.filter((city: City) => city.id === id)?.[0];
-  };
+  // This function returns an object of a city
+  const onCitySelect = useCallback(
+    (id: number) => {
+      return cities.filter((city: City) => city.id === id)?.[0];
+    },
+    [cities]
+  );
 
-  const onCityChange = (_: React.SyntheticEvent, id: number) => {
-    setTabIndex(id);
-    getCityWeather(onCitySelect(id));
-  };
+  const onCityChange = useCallback(
+    (_: React.SyntheticEvent, id: number) => {
+      setTabIndex(id);
+      setIsLoading(true);
+      getCityWeather(onCitySelect(id));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [setTabIndex, onCitySelect, setIsLoading]
+  );
 
-  const getCityWeather = (city: City) => {
-    getWeather(city.label).then((res: WeatherData) => {
-      setCities((prevState) => {
-        prevState[city.id].data = res;
-        return prevState;
-      });
-    });
-  };
+  const getCityWeather = useCallback(
+    (city: City) => {
+      getWeather(city.label)
+        .then((res: WeatherData) => {
+          setCities((prevState) => {
+            prevState[city.id].data = res;
+            return prevState;
+          });
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    },
+    [setCities]
+  );
 
   useEffect(() => {
     getCityWeather(cities[tabIndex]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const weatherContextValue: IWeatherContext = {
+  return {
+    tabIndex,
+    onCityChange,
     cities,
-    setCities,
+    isLoading,
   };
-
-  return { tabIndex, onCityChange, weatherContextValue };
 };
