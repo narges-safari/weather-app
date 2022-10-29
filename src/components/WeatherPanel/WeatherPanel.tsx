@@ -4,9 +4,10 @@ import { List } from "../../pages/Weather.types";
 import CloudIcon from "@mui/icons-material/Cloud";
 import { WeatherPanelProps } from "./WeatherPanel.types";
 import { Box, CircularProgress, Typography } from "@mui/material";
-
+import { useWeatherPanel } from "./WeatherPanel.biz,";
 const WeatherPanel = (props: WeatherPanelProps) => {
   const { weatherData } = props;
+  const { getWeekDay } = useWeatherPanel();
 
   return (
     <Fragment>
@@ -37,7 +38,7 @@ const WeatherPanel = (props: WeatherPanelProps) => {
           {weatherData?.list.slice(1).map((item: List) => (
             <WeekDayPanel
               key={item.dt}
-              weekday="Monday"
+              weekday={getWeekDay(item.dt_txt)!}
               temperature={Math.round(item.main.temp)}
               icon={<CloudIcon />}
               border
