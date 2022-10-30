@@ -14,8 +14,8 @@ const WeekDayPanel = (props: WeekDayPanelProps) => {
       borderRight={border ? "4px solid white" : "unset"}
     >
       <Typography>{weekday}</Typography>
-      {icon}
-      <Typography>{temperature}</Typography>
+      <img src={icon} alt="" height={64} width={64} />
+      <Typography>{`${temperature}°`}</Typography>
     </Box>
   );
 };
