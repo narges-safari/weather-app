@@ -4,7 +4,7 @@ Weather APP
 
 ## Demo link:
 
-[demo](https://weatherapp.netlify.app)
+[demo](https://weatherapp-ns.netlify.app)
 
 ### Description:
 
