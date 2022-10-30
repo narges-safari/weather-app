@@ -1,4 +1,3 @@
-import moment from "moment";
 import { useMemo } from "react";
 import { iconDictionary } from "./WeatherPanel.const";
 import { WeatherPanelProps } from "./WeatherPanel.types";
@@ -6,8 +5,9 @@ import { WeatherPanelProps } from "./WeatherPanel.types";
 export const useWeatherPanel = (props: WeatherPanelProps) => {
   const { weatherData } = props;
 
-  const getWeekDay = (date: string) => {
-    const dayOfWeek = moment(date).day();
+  const getWeekDay = (_date: string) => {
+    const date = new Date(_date);
+    const dayOfWeek = date.getDay();
     switch (dayOfWeek) {
       case 0:
         return "Sun";
