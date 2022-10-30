@@ -1,7 +1,7 @@
 import { useWeather } from "./Weather.biz";
 import useWeatherStyle from "./Weather.style";
 import { Box, Tab, Tabs } from "@mui/material";
-import { City, WeatherData } from "./Weather.types";
+import { City } from "./Weather.types";
 import WeatherPanel from "../components/WeatherPanel/WeatherPanel";
 
 const Weather = () => {
@@ -28,7 +28,7 @@ const Weather = () => {
         <WeatherPanel
           isLoading={isLoading}
           key={Number(cities[tabIndex]?.id)}
-          weatherData={cities[tabIndex]?.data as WeatherData}
+          weatherData={cities[tabIndex]?.data}
         />
       </Box>
     </Box>

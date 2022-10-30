@@ -7,7 +7,7 @@ export const initialCities: City[] = [
     data: null,
   },
   {
-    label: "Amsterdam",
+    label: "Helsinki",
     id: 1,
     data: null,
   },

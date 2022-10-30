@@ -4,6 +4,7 @@ import { List } from "../../pages/Weather.types";
 import { useWeatherPanel } from "./WeatherPanel.biz";
 import { WeatherPanelProps } from "./WeatherPanel.types";
 import { Box, CircularProgress, Typography } from "@mui/material";
+import { TODAY } from "./WeatherPanel.const";
 
 const WeatherPanel = (props: WeatherPanelProps) => {
   const { filteredData, getWeekDay, weatherIconRenderer } =
@@ -39,7 +40,7 @@ const WeatherPanel = (props: WeatherPanelProps) => {
                 fontSize={{ md: 32, sm: 16 }}
                 marginBottom={{ md: 3, sm: 1 }}
               >
-                Today
+                {TODAY}
               </Typography>
               {filteredData?.slice(0, 1).map((item: List) => (
                 <Box display={"flex"} alignItems={"center"} key={item.dt}>
@@ -71,7 +72,7 @@ const WeatherPanel = (props: WeatherPanelProps) => {
                   key={item.dt}
                   weekday={getWeekDay(item.dt_txt)!}
                   temperature={Math.round(item.main.temp)}
-                  icon={weatherIconRenderer(item.weather[0].icon)!}
+                  icon={weatherIconRenderer(item.weather[0].icon)}
                   border={index < 3}
                 />
               ))}

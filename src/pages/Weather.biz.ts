@@ -6,7 +6,7 @@ import { City, WeatherData } from "./Weather.types";
 export const useWeather = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [cities, setCities] = useState<City[]>(initialCities);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // This function returns an object of a city
   const onCitySelect = useCallback(
@@ -48,9 +48,9 @@ export const useWeather = () => {
   }, []);
 
   return {
-    tabIndex,
-    onCityChange,
     cities,
+    tabIndex,
     isLoading,
+    onCityChange,
   };
 };
