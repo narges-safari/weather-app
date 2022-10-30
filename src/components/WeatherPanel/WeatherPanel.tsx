@@ -1,50 +1,77 @@
 import { Fragment } from "react";
 import WeekDayPanel from "../WeekDayPanel";
 import { List } from "../../pages/Weather.types";
-import CloudIcon from "@mui/icons-material/Cloud";
+import { useWeatherPanel } from "./WeatherPanel.biz";
 import { WeatherPanelProps } from "./WeatherPanel.types";
 import { Box, CircularProgress, Typography } from "@mui/material";
-import { useWeatherPanel } from "./WeatherPanel.biz,";
+
 const WeatherPanel = (props: WeatherPanelProps) => {
-  const { weatherData } = props;
-  const { getWeekDay } = useWeatherPanel();
+  const { filteredData, getWeekDay, weatherIconRenderer } =
+    useWeatherPanel(props);
 
   return (
     <Fragment>
       <Box height={500} width={700}>
-        <Box
-          height={"60%"}
-          display={"flex"}
-          flexDirection={"column"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          borderBottom={"4px solid white"}
-        >
-          <Typography variant={"h4"} fontWeight={100} marginBottom={2}>
-            Today
-          </Typography>
-          {!weatherData?.list && <CircularProgress />}
-          {weatherData?.list.slice(0, 1).map((item: List) => (
-            <Box display={"flex"} alignItems={"center"} key={item.dt}>
-              <CloudIcon sx={{ fontSize: 64 }} />
-              <Box marginLeft={3}>
-                <Typography>{Math.round(item.main.temp)}</Typography>
-                <Typography>{item.weather[0].main}</Typography>
-              </Box>
+        {!filteredData ? (
+          <Box
+            height={"100%"}
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <CircularProgress size={64} />
+          </Box>
+        ) : (
+          <>
+            <Box
+              height={"60%"}
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              borderBottom={"4px solid white"}
+            >
+              <Typography fontSize={32} marginBottom={3}>
+                Today
+              </Typography>
+              {filteredData?.slice(0, 1).map((item: List) => (
+                <Box display={"flex"} alignItems={"center"} key={item.dt}>
+                  <Box paddingRight={2}>
+                    <img
+                      src={weatherIconRenderer(item.weather[0].icon)}
+                      alt={"today-weather-icon"}
+                    />
+                  </Box>
+                  <Box paddingLeft={2}>
+                    <Typography
+                      variant={"h3"}
+                      fontWeight={"bold"}
+                    >{`${Math.round(item.main.temp)}°`}</Typography>
+                    <Typography fontSize={24}>
+                      {item.weather[0].description}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))}
             </Box>
-          ))}
-        </Box>
-        <Box display={"flex"} justifyContent={"space-around"} height={"40%"}>
-          {weatherData?.list.slice(1).map((item: List) => (
-            <WeekDayPanel
-              key={item.dt}
-              weekday={getWeekDay(item.dt_txt)!}
-              temperature={Math.round(item.main.temp)}
-              icon={<CloudIcon />}
-              border
-            />
-          ))}
-        </Box>
+            <Box
+              display={"flex"}
+              justifyContent={"space-around"}
+              height={"40%"}
+            >
+              {filteredData?.slice(1).map((item: List, index: number) => (
+                <WeekDayPanel
+                  key={item.dt}
+                  weekday={getWeekDay(item.dt_txt)!}
+                  temperature={Math.round(item.main.temp)}
+                  icon={weatherIconRenderer(item.weather[0].icon)!}
+                  border={index < 3}
+                />
+              ))}
+            </Box>
+          </>
+        )}
       </Box>
     </Fragment>
   );
