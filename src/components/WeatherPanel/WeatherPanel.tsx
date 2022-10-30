@@ -71,7 +71,7 @@ const WeatherPanel = (props: WeatherPanelProps) => {
                   key={item.dt}
                   weekday={getWeekDay(item.dt_txt)!}
                   temperature={Math.round(item.main.temp)}
-                  icon={weatherIconRenderer(item.weather[0].icon)!}
+                  icon={weatherIconRenderer(item.weather[0].icon)}
                   border={index < 3}
                 />
               ))}

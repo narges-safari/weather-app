@@ -28,7 +28,7 @@ const Weather = () => {
         <WeatherPanel
           isLoading={isLoading}
           key={Number(cities[tabIndex]?.id)}
-          weatherData={cities[tabIndex]?.data as WeatherData}
+          weatherData={cities[tabIndex]?.data}
         />
       </Box>
     </Box>
