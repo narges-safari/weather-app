@@ -1,11 +1,12 @@
-import { Fragment } from "react";
 import Weather from "./pages/Weather";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./App.theme";
 
 function App() {
   return (
-    <Fragment>
+    <ThemeProvider theme={theme}>
       <Weather />
-    </Fragment>
+    </ThemeProvider>
   );
 }
 
