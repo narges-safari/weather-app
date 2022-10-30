@@ -11,7 +11,10 @@ const WeatherPanel = (props: WeatherPanelProps) => {
 
   return (
     <Fragment>
-      <Box height={500} width={700}>
+      <Box
+        height={{ md: 500, sm: 320, xs: 320 }}
+        width={{ md: 700, sm: 300, xs: 300 }}
+      >
         {!filteredData ? (
           <Box
             height={"100%"}
@@ -32,23 +35,26 @@ const WeatherPanel = (props: WeatherPanelProps) => {
               justifyContent={"center"}
               borderBottom={"4px solid white"}
             >
-              <Typography fontSize={32} marginBottom={3}>
+              <Typography
+                fontSize={{ md: 32, sm: 16 }}
+                marginBottom={{ md: 3, sm: 1 }}
+              >
                 Today
               </Typography>
               {filteredData?.slice(0, 1).map((item: List) => (
                 <Box display={"flex"} alignItems={"center"} key={item.dt}>
-                  <Box paddingRight={2}>
+                  <Box paddingRight={{ md: 2, sm: 1 }}>
                     <img
                       src={weatherIconRenderer(item.weather[0].icon)}
                       alt={"today-weather-icon"}
                     />
                   </Box>
-                  <Box paddingLeft={2}>
+                  <Box paddingLeft={{ md: 2, sm: 1 }}>
                     <Typography
                       variant={"h3"}
                       fontWeight={"bold"}
                     >{`${Math.round(item.main.temp)}°`}</Typography>
-                    <Typography fontSize={24}>
+                    <Typography fontSize={{ md: 24, sm: 12 }}>
                       {item.weather[0].description}
                     </Typography>
                   </Box>
