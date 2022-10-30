@@ -31,3 +31,5 @@ export const iconDictionary: IconDictionary[] = [
   { code: "50n", value: Mist },
   { code: "50d", value: Mist },
 ];
+
+export const TODAY = "Today";
