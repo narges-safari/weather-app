@@ -1,7 +1,7 @@
 import { useWeather } from "./Weather.biz";
 import useWeatherStyle from "./Weather.style";
 import { Box, Tab, Tabs } from "@mui/material";
-import { City, WeatherData } from "./Weather.types";
+import { City } from "./Weather.types";
 import WeatherPanel from "../components/WeatherPanel/WeatherPanel";
 
 const Weather = () => {
